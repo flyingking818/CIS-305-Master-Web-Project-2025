@@ -222,6 +222,10 @@
     <Compile Include="Demos\MyFlaglerWeb\MainForm.aspx.designer.cs">
       <DependentUpon>MainForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Demos\MyFlaglerWeb\model\Person.cs" />
+    <Compile Include="Demos\MyFlaglerWeb\model\Professor.cs" />
+    <Compile Include="Demos\MyFlaglerWeb\model\Staff.cs" />
+    <Compile Include="Demos\MyFlaglerWeb\model\Student.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
