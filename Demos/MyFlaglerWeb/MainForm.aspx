@@ -20,9 +20,9 @@
                 <td>
                     <table>
                         <tr>
-                            <td style="width: 150px;">Name: </td>
+                            <td style="width: 150px;">Name*: </td>
                             <td style="width: 400px;">
-                                <asp:TextBox runat="server" ID="txtName"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtName"></asp:TextBox><asp:RequiredFieldValidator runat="server" ErrorMessage="Please enter your name!" ControlToValidate="txtName"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -40,7 +40,7 @@
                     </table>
                 </td>
             </tr>
-
+            <!--
             <asp:Panel ID="pnlProfessor" runat="server">
                 <tr>
                     <td>Professor Information</td>
@@ -140,6 +140,7 @@
                     </td>
                 </tr>
             </asp:Panel>
+            -->
 
             <tr>
                 <td><asp:Button ID="btnDisplayProfile" runat="server" Text="Display Profile" OnClick="btnDisplayProfile_Click"></asp:Button></td>
@@ -147,7 +148,7 @@
                     <asp:Label ID="lblResult" runat="server" Text=""></asp:Label></td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
+                <td><asp:Button ID="btnAddProfile" runat="server" Text="Add Profile"></asp:Button></td>
                 <td>&nbsp;</td>
             </tr>
         </table>

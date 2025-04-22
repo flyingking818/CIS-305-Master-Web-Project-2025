@@ -255,6 +255,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assignments\" />
+    <Folder Include="Demos\MyFlaglerWeb\Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
