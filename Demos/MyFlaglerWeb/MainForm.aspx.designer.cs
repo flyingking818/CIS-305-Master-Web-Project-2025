@@ -15,6 +15,15 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
     {
 
         /// <summary>
+        /// PanelForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelForm;
+
+        /// <summary>
         /// rblPersonType control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtID;
+
+        /// <summary>
+        /// RangeValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
 
         /// <summary>
         /// txtEmail control.
@@ -177,15 +195,6 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
         protected global::System.Web.UI.WebControls.Button btnDisplayProfile;
 
         /// <summary>
-        /// lblResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResult;
-
-        /// <summary>
         /// btnAddProfile control.
         /// </summary>
         /// <remarks>
@@ -193,5 +202,14 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddProfile;
+
+        /// <summary>
+        /// lblResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblResult;
     }
 }

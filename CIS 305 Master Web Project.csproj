@@ -120,7 +120,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Demos\HelloWorld\HelloWorld.aspx" />
+    <Content Include="Demos\MyFlaglerWeb\Data\DBSchema.sql" />
+    <Content Include="Demos\MyFlaglerWeb\Data\TestQuery.sql" />
     <Content Include="Demos\MyFlaglerWeb\MainForm.aspx" />
+    <Content Include="Demos\MyFlaglerWeb\Summary.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -226,6 +229,13 @@
     <Compile Include="Demos\MyFlaglerWeb\model\Professor.cs" />
     <Compile Include="Demos\MyFlaglerWeb\model\Staff.cs" />
     <Compile Include="Demos\MyFlaglerWeb\model\Student.cs" />
+    <Compile Include="Demos\MyFlaglerWeb\Summary.aspx.cs">
+      <DependentUpon>Summary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demos\MyFlaglerWeb\Summary.aspx.designer.cs">
+      <DependentUpon>Summary.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,7 +265,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assignments\" />
-    <Folder Include="Demos\MyFlaglerWeb\Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
 {
@@ -100,5 +102,110 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
             return person;
 
         }
+
+        protected void btnAddProfile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                //Polymorphism: The Person variable can hold any subclass instance.
+                //The CreatePerson() method acts like a factory,
+                //creating the appropriate derived class based on some condition(radio button selection).
+                Person person = CreatePerson();  //create a person object on demand!
+
+                if (person == null) return;  //early exit if a lot of processes happen after this.
+
+                InsertToDatabase(person);
+
+                PanelForm.Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+
+                lblResult.Text = $"Error: {ex.Message}";
+            }
+        }
+
+        private void InsertToDatabase(Person person)
+        {
+            string connString = ConfigurationManager.ConnectionStrings["PersonApp"].ConnectionString;
+
+           // string connString = "Server=misapps.flagler.edu;Database=jwang;User ID=jwang;Password=CIS305;Trusted_Connection=False;MultipleActiveResultSets=True;";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                SqlTransaction transaction = conn.BeginTransaction();
+                try
+                {
+                    // Insert into Persons table
+                    SqlCommand cmdPerson = new SqlCommand(@"
+                INSERT INTO Persons (Name, ID, Email, PersonType, CreatedAt)
+                OUTPUT INSERTED.PersonID
+                VALUES (@Name, @ID, @Email, @PersonType, @CreatedAt);", conn, transaction);
+
+                    cmdPerson.Parameters.AddWithValue("@Name", person.Name);
+                    cmdPerson.Parameters.AddWithValue("@ID", person.ID);
+                    cmdPerson.Parameters.AddWithValue("@Email", person.Email);
+                    cmdPerson.Parameters.AddWithValue("@PersonType", person.GetType().Name);
+                    cmdPerson.Parameters.AddWithValue("@CreatedAt", DateTime.Now);  // current timestamp
+
+                    int personID = (int)cmdPerson.ExecuteScalar(); //this returns the PersonID
+
+                    // Insert into subtype table
+                    if (person is Professor professor)
+                    {
+                        SqlCommand cmd = new SqlCommand(@"
+                    INSERT INTO Professors (PersonID, Department, ResearchArea, IsTerminalDegree)
+                    VALUES (@PersonID, @Department, @ResearchArea, @IsTerminalDegree);", conn, transaction);
+
+                        cmd.Parameters.AddWithValue("@PersonID", personID);
+                        cmd.Parameters.AddWithValue("@Department", professor.Department);
+                        cmd.Parameters.AddWithValue("@ResearchArea", professor.ResearchArea);
+                        cmd.Parameters.AddWithValue("@IsTerminalDegree", professor.IsTerminalDegree);
+
+                        cmd.ExecuteNonQuery();//Because we don't require any output back from SQL
+                    }
+                    else if (person is Student student)
+                    {
+                        SqlCommand cmd = new SqlCommand(@"
+                    INSERT INTO Students (PersonID, Major, GPA, IsFullTime, EnrollmentDate)
+                    VALUES (@PersonID, @Major, @GPA, @IsFullTime, @EnrollmentDate);", conn, transaction);
+
+                        cmd.Parameters.AddWithValue("@PersonID", personID);
+                        cmd.Parameters.AddWithValue("@Major", student.Major);
+                        cmd.Parameters.AddWithValue("@GPA", student.GPA);
+                        cmd.Parameters.AddWithValue("@IsFullTime", student.IsFullTime);
+                        cmd.Parameters.AddWithValue("@EnrollmentDate", student.EnrollmentDate);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    else if (person is Staff staff)
+                    {
+                        SqlCommand cmd = new SqlCommand(@"
+                    INSERT INTO Staff (PersonID, Position, Division, IsAdministrative)
+                    VALUES (@PersonID, @Position, @Division, @IsAdministrative);", conn, transaction);
+
+                        cmd.Parameters.AddWithValue("@PersonID", personID);
+                        cmd.Parameters.AddWithValue("@Position", staff.Position);
+                        cmd.Parameters.AddWithValue("@Division", staff.Division);
+                        cmd.Parameters.AddWithValue("@IsAdministrative", staff.IsAdministrative);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    lblResult.Text += "<br/>Profile saved to database. <a href=\"Summary.aspx\">View Summary</a>";
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    lblResult.Text += $"<br/>Database error: {ex.Message}";
+                }
+            }
+        }
+
+
     }
 }

@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Personnel Management</h1>
     <p>
+        <asp:Panel ID="PanelForm" runat="server">
         <table>
             <tr>
                 <td style="width: 200px">Person Type</td>
@@ -22,13 +23,13 @@
                         <tr>
                             <td style="width: 150px;">Name*: </td>
                             <td style="width: 400px;">
-                                <asp:TextBox runat="server" ID="txtName"></asp:TextBox><asp:RequiredFieldValidator runat="server" ErrorMessage="Please enter your name!" ControlToValidate="txtName"></asp:RequiredFieldValidator>
+                                <asp:TextBox runat="server" ID="txtName"></asp:TextBox><asp:RequiredFieldValidator runat="server" ErrorMessage="Please enter your name!" ControlToValidate="txtName" ForeColor="Red"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
                             <td>ID: </td>
                             <td>
-                                <asp:TextBox runat="server" ID="txtID"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtID"></asp:TextBox><asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please enter a valid ID number!" ControlToValidate="txtID" MinimumValue="100" MaximumValue="1000" Type="Integer" ForeColor="red"></asp:RangeValidator> 
                             </td>
                         </tr>
                         <tr>
@@ -40,7 +41,7 @@
                     </table>
                 </td>
             </tr>
-            <!--
+           
             <asp:Panel ID="pnlProfessor" runat="server">
                 <tr>
                     <td>Professor Information</td>
@@ -140,20 +141,27 @@
                     </td>
                 </tr>
             </asp:Panel>
-            -->
+          
 
             <tr>
                 <td><asp:Button ID="btnDisplayProfile" runat="server" Text="Display Profile" OnClick="btnDisplayProfile_Click"></asp:Button></td>
                 <td>
-                    <asp:Label ID="lblResult" runat="server" Text=""></asp:Label></td>
+                    
+
+                </td>
             </tr>
             <tr>
-                <td><asp:Button ID="btnAddProfile" runat="server" Text="Add Profile"></asp:Button></td>
+                <td>
+                    <asp:Button ID="btnAddProfile" runat="server" Text="Add Profile" OnClick="btnAddProfile_Click"></asp:Button></td>
                 <td>&nbsp;</td>
             </tr>
         </table>
+        </asp:Panel>
     </p>
-    <p>&nbsp;</p>
+    <p>
+        <asp:Label ID="lblResult" runat="server" Text=""></asp:Label>
+
+    </p>
 
 
 
