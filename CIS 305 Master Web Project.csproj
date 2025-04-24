@@ -120,10 +120,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Demos\HelloWorld\HelloWorld.aspx" />
-    <Content Include="Demos\MyFlaglerTemplate\Data\DBSchema.sql" />
-    <Content Include="Demos\MyFlaglerTemplate\Data\TestQuery.sql" />
-    <Content Include="Demos\MyFlaglerTemplate\Main.aspx" />
-    <Content Include="Demos\MyFlaglerTemplate\Summary.aspx" />
+    <Content Include="Demos\myFlaglerTemplate\Data\DBSchema.sql" />
+    <Content Include="Demos\myFlaglerTemplate\Data\TestQuery.sql" />
+    <Content Include="Demos\myFlaglerTemplate\Main.aspx" />
+    <Content Include="Demos\myFlaglerTemplate\Summary.aspx" />
     <Content Include="Demos\MyFlaglerWeb\MainForm.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -219,22 +219,22 @@
     <Compile Include="Demos\HelloWorld\HelloWorld.aspx.designer.cs">
       <DependentUpon>HelloWorld.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Demos\MyFlaglerTemplate\Main.aspx.cs">
+    <Compile Include="Demos\myFlaglerTemplate\Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Demos\MyFlaglerTemplate\Main.aspx.designer.cs">
+    <Compile Include="Demos\myFlaglerTemplate\Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Demos\MyFlaglerTemplate\Model\Person.cs" />
-    <Compile Include="Demos\MyFlaglerTemplate\Model\Professor.cs" />
-    <Compile Include="Demos\MyFlaglerTemplate\Model\Staff.cs" />
-    <Compile Include="Demos\MyFlaglerTemplate\Model\Student.cs" />
-    <Compile Include="Demos\MyFlaglerTemplate\Summary.aspx.cs">
+    <Compile Include="Demos\myFlaglerTemplate\Model\Person.cs" />
+    <Compile Include="Demos\myFlaglerTemplate\Model\Professor.cs" />
+    <Compile Include="Demos\myFlaglerTemplate\Model\Staff.cs" />
+    <Compile Include="Demos\myFlaglerTemplate\Model\Student.cs" />
+    <Compile Include="Demos\myFlaglerTemplate\Summary.aspx.cs">
       <DependentUpon>Summary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Demos\MyFlaglerTemplate\Summary.aspx.designer.cs">
+    <Compile Include="Demos\myFlaglerTemplate\Summary.aspx.designer.cs">
       <DependentUpon>Summary.aspx</DependentUpon>
     </Compile>
     <Compile Include="Demos\MyFlaglerWeb\MainForm.aspx.cs">
