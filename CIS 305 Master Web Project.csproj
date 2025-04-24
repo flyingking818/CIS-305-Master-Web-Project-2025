@@ -120,6 +120,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Demos\HelloWorld\HelloWorld.aspx" />
+    <Content Include="Demos\MyFlaglerTemplate\Data\DBSchema.sql" />
+    <Content Include="Demos\MyFlaglerTemplate\Main.aspx" />
+    <Content Include="Demos\MyFlaglerTemplate\Summary.aspx" />
     <Content Include="Demos\MyFlaglerWeb\MainForm.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -214,6 +217,24 @@
     </Compile>
     <Compile Include="Demos\HelloWorld\HelloWorld.aspx.designer.cs">
       <DependentUpon>HelloWorld.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demos\MyFlaglerTemplate\Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demos\MyFlaglerTemplate\Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demos\MyFlaglerTemplate\Model\Person.cs" />
+    <Compile Include="Demos\MyFlaglerTemplate\Model\Professor.cs" />
+    <Compile Include="Demos\MyFlaglerTemplate\Model\Staff.cs" />
+    <Compile Include="Demos\MyFlaglerTemplate\Model\Student.cs" />
+    <Compile Include="Demos\MyFlaglerTemplate\Summary.aspx.cs">
+      <DependentUpon>Summary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demos\MyFlaglerTemplate\Summary.aspx.designer.cs">
+      <DependentUpon>Summary.aspx</DependentUpon>
     </Compile>
     <Compile Include="Demos\MyFlaglerWeb\MainForm.aspx.cs">
       <DependentUpon>MainForm.aspx</DependentUpon>
