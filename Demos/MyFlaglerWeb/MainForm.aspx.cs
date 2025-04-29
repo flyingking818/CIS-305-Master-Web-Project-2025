@@ -63,7 +63,7 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
             Person person = null;
             if (rblPersonType.SelectedValue=="Professor")
             {
-                person = new Professor
+                person = new Professor                
                 {
                     Name = txtName.Text,
                     ID = txtID.Text,
@@ -72,6 +72,7 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
                     ResearchArea = txtResearchArea.Text,
                     IsTerminalDegree = chkTerminalDegree.Checked,
                 };
+                
             }
             else if (rblPersonType.SelectedValue== "Student")
             {
