@@ -14,6 +14,14 @@ namespace WebApplication_Test2025.Demos.MyFlagler
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            /*
+             IsPostBack is a property in ASP.NET Web Forms that tells you whether 
+            the page is loading for the first time or being reloaded 
+            (like after a button click, form submit, etc.).
+
+            !IsPostBack means "if this is NOT a postback" — in other words, 
+            if the page is loading for the very first time.
+             */
             if (!IsPostBack)
             {
                 LoadSummary();
@@ -24,8 +32,23 @@ namespace WebApplication_Test2025.Demos.MyFlagler
         {
             string connStr = ConfigurationManager.ConnectionStrings["PersonApp"].ConnectionString;
 
+            /*
+             using (...) is a special C# statement that automatically manages 
+            resources for you by ensuring that objects like database connections, 
+            file streams, or network sockets are properly closed and disposed of 
+            after use. This helps prevent resource leaks, improves application 
+            performance, and ensures that critical system resources are not left 
+            hanging even if an error occurs.
+             */
+
+
             using (SqlConnection conn = new SqlConnection(connStr))
             {
+                // SQL query to retrieve a combined view of Persons, including related info for Students,
+                // Professors, and Staff.
+
+                // Uses LEFT JOINs to include all persons even if they are not associated
+                // with a particular role.
                 string query = @"
                     SELECT 
                         p.PersonID,
@@ -42,10 +65,16 @@ namespace WebApplication_Test2025.Demos.MyFlagler
                     LEFT JOIN Staff st ON p.PersonID = st.PersonID
                     ORDER BY p.PersonID ASC;";
 
+                // Create a data adapter to execute the query and fill a DataTable with the results.
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+
+                // Create an in-memory table to hold the query results.
                 DataTable table = new DataTable();
+
+                // Fill the DataTable with data from the SQL query.
                 adapter.Fill(table);
 
+                // Bind the populated DataTable to the GridView control for display.
                 gvSummary.DataSource = table;
                 gvSummary.DataBind();
             }
