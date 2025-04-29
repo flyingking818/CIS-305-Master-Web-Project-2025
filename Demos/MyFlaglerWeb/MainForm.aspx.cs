@@ -63,6 +63,8 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
             Person person = null;
             if (rblPersonType.SelectedValue=="Professor")
             {
+                //Option1: Using the default constructor for professor
+                /*
                 person = new Professor                
                 {
                     Name = txtName.Text,
@@ -71,11 +73,23 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
                     Department = ddlDepartment.Text,
                     ResearchArea = txtResearchArea.Text,
                     IsTerminalDegree = chkTerminalDegree.Checked,
-                };
+                };    
+                */
                 
+                //Option 2: Using custom constructor for Professor
+                person = new Professor(
+                    txtName.Text,
+                    txtID.Text,
+                    txtEmail.Text,
+                    ddlDepartment.Text,
+                    txtResearchArea.Text,
+                    chkTerminalDegree.Checked
+                );
             }
             else if (rblPersonType.SelectedValue== "Student")
             {
+                //Option1: Using the default constructor for student
+                /*
                 person = new Student
                 {
                     Name = txtName.Text,
@@ -86,9 +100,24 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
                     IsFullTime = chkFullTime.Checked,
                     EnrollmentDate = Convert.ToDateTime(txtEnrollmentDate.Text)
                 };
+                */
+
+                //Option 2: Using custom constructor for Professor
+                person = new Student(
+                     txtName.Text,
+                     txtID.Text,
+                     txtEmail.Text,
+                     txtMajor.Text,
+                     double.Parse(txtGPA.Text), 
+                     chkFullTime.Checked,
+                     Convert.ToDateTime(txtEnrollmentDate.Text)
+                 );
+
             }
             else if (rblPersonType.SelectedValue == "Staff")
             {
+                //Option1: Using the default constructor for staff
+                /*
                 person = new Staff
                 {
                     Name = txtName.Text,
@@ -98,6 +127,17 @@ namespace CIS_305_Master_Web_Project.Demos.MyFlaglerWeb
                     Division = txtDivision.Text,
                     IsAdministrative = chkAdministrative.Checked
                 };
+                */
+
+                //Option 2: Using custom constructor for staff
+                person = new Staff(
+                    txtName.Text,
+                    txtID.Text,
+                    txtEmail.Text,
+                    txtPosition.Text,
+                    txtDivision.Text,
+                    chkAdministrative.Checked
+                );
             }
 
             return person;
