@@ -1,69 +1,257 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="CIS_305_Master_Web_Project.SiteMaster" %>
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Ask Saint Chat</title>
 
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>
-
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <style>
+    #chatLauncher {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    #chatLauncher img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #chatPopup {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 420px;
+        height: 660px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        font-family: "Segoe UI", sans-serif;
+        z-index: 1001;
+        border: 1px solid #ccc;
+        animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .chat-header {
+        background-color: #8A1E2A; /* Flagler maroon */
+        color: #fff;
+        padding: 14px 18px;
+        font-weight: bold;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chat-header button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .chat-body {
+        flex: 1;
+        padding: 14px;
+        overflow-y: auto;
+        font-size: 15px;
+        background-color: #f9f9f9;
+    }
+
+    .chat-body .user,
+    .chat-body .bot {
+        margin-bottom: 14px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .chat-body .user {
+        justify-content: flex-end;
+        text-align: right;
+    }
+
+    .chat-body .bot {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .chat-body .user span,
+    .chat-body .bot span {
+        margin-left: 6px;
+        max-width: 75%;
+        word-wrap: break-word;
+        padding: 12px 16px;
+        border-radius: 12px;
+        display: inline-block;
+        line-height: 1.4;
+    }
+
+    .chat-body .user span {
+        background-color: #8A1E2A;
+        color: #fff;
+    }
+
+    .chat-body .bot span {
+        background-color: #F1F1F1;
+        color: #000;
+    }
+
+    .chat-body .bot span a {
+        color: #8A1E2A;
+        text-decoration: underline;
+    }
+
+    .chat-body .user:before {
+        content: "🧑‍🎓";
+        margin-left: 8px;
+    }
+
+    .chat-body .bot:before {
+        content: "🤖";
+        margin-right: 8px;
+    }
+
+    .chat-input {
+        border-top: 1px solid #ddd;
+        padding: 12px;
+        background-color: #fff;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .chat-input input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 14px;
+        box-sizing: border-box;
+        max-width:500px;
+    }
+
+    .typing {
+        color: gray;
+        font-style: italic;
+        font-size: 13px;
+        padding-top: 6px;
+    }
+</style>
 
 </head>
 <body>
-    <form runat="server">
-        <asp:ScriptManager runat="server">
-            <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
-                <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
-                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
-                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
-                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
-                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
-                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
-                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
-                <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
-            </Scripts>
-        </asp:ScriptManager>
+    <form id="form1" runat="server">
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Application name</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </footer>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+
+        <!-- Chat Launcher Button -->
+        <div id="chatLauncher" onclick="openChat()">
+            <img src="chat-icon.png" alt="Chat" />
+        </div>
+
+        <!-- Chat Popup Box -->
+        <div id="chatPopup">
+            <div class="chat-header">
+                <span>Ask Saint</span>
+                <button onclick="closeChat()">×</button>
+            </div>
+            <div id="chatBox" class="chat-body"></div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" maxlength="300" placeholder="Type your message..." />
+                <div id="typingIndicator" class="typing" style="display:none;">🤖 Ask Saint is typing...</div>
+            </div>
         </div>
     </form>
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
-    </asp:PlaceHolder>
+
+    <!-- Chat JavaScript -->
+    <script>
+        function openChat() {
+            document.getElementById("chatPopup").style.display = "flex";
+        }
+
+        function closeChat() {
+            document.getElementById("chatPopup").style.display = "none";
+        }
+
+        function sendChat() {
+            let isCoolingDown = false;
+            if (isCoolingDown) {
+                alert("⏳ Please wait a moment before sending another message.");
+                return;
+            }
+
+            const input = document.getElementById("chatInput").value.trim();
+            if (!input) return;
+
+            const chatBox = document.getElementById("chatBox");
+            chatBox.innerHTML += `<div class="user"><span>${input}</span></div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            document.getElementById("chatInput").value = "";
+
+            document.getElementById("typingIndicator").style.display = "block";
+
+            isCoolingDown = true; //Lock requests
+
+            fetch("ChatHandler.ashx", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userInput: input })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("typingIndicator").style.display = "none";
+                    chatBox.innerHTML += `<div class="bot"><span>${data}</span></div>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(err => {
+                    document.getElementById("typingIndicator").style.display = "none";
+                    chatBox.innerHTML += `<div class="bot" style="color:red;"><span>🤖 Error: ${err}</span></div>`;
+                })
+                .finally(() => {
+                    // Unlock after 5 seconds (adjustable)
+                    setTimeout(() => {
+                        isCoolingDown = false;
+                    }, 5000);
+                });
+        }
+
+        // Attach Enter key event after DOM loads
+        document.addEventListener("DOMContentLoaded", function () {
+            const input = document.getElementById("chatInput");
+            input.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // ✅ Prevent postback
+                    sendChat();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
